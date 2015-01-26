@@ -3,7 +3,10 @@ body {
 }
 
 .mytable {
-	align: center;
+	text-align: center;
+	width : 50%;
+	margin-left: 2px auto;
+	margin-right: 2px auto;
 }
 
 h2 {
