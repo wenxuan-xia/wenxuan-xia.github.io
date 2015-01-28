@@ -12,3 +12,11 @@ h2 {
 	text-align: center;
 }
 
+.chart div {
+  font: 10px sans-serif;
+  background-color: #999999;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
