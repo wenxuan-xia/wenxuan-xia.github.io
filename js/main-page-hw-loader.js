@@ -11,6 +11,9 @@ function load_homework(hw_no) {
 			{},
 			function(o) {
 				document.getElementById('homework-loader').innerHTML = o
+				if (hw_no===2) {
+					load_stu_score()
+				}
 			},
 			"html"
 		);

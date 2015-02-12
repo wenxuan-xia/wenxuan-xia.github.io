@@ -1,6 +1,6 @@
 $(document).ready(
 	function() {
-		// load_stu_score()
+		load_stu_score()
 		alert(1)
 	}
 ) 
