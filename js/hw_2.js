@@ -1,5 +1,5 @@
 function load_stu_score() {
-	url = "../data/students.json"//local
+	url = "http://yijisoo.github.io/ie59000/2015spring/hw2/students.json"//local
 	$.get(
 			url,
 			{},

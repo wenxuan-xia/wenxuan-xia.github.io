@@ -7,7 +7,6 @@ $(document).ready(
 		} else {
 			hw_no = url[hw_no]
 		}
-
 		if (hw_no == 0) {
 			load_ref()
 		} else {
@@ -23,7 +22,7 @@ function load_homework(hw_no) {
 			{},
 			function(o) {
 				document.getElementById('homework-loader').innerHTML = o
-				if (hw_no===2) {
+				if (hw_no==2) {
 					load_stu_score()
 				}
 			},
