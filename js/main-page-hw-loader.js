@@ -1,14 +1,18 @@
 $(document).ready(
 	function() {
 		url = window.location.href
-		var re = "#hw_1"
 		var hw_no = url.search("[0-9]")
 		if (hw_no === -1) {
 			hw_no = 1
 		} else {
 			hw_no = url[hw_no]
 		}
-		load_homework(hw_no)
+
+		if (hw_no == 0) {
+			load_ref()
+		} else {
+			load_homework(hw_no)
+		}
 	}
 )
 
@@ -27,3 +31,14 @@ function load_homework(hw_no) {
 		);
 }
 
+function load_ref() {
+	url = "./ref.html"
+	$.get(
+			url,
+			{},
+			function(o) {
+				document.getElementById('homework-loader').innerHTML = o
+			},
+			"html"
+		);
+}
