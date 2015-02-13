@@ -1,8 +1,16 @@
 $(document).ready(
 	function() {
-		load_homework(1)
+		url = window.location.href
+		var re = "#hw_1"
+		var hw_no = url.search("[0-9]")
+		if (hw_no === -1) {
+			hw_no = 1
+		} else {
+			hw_no = url[hw_no]
+		}
+		load_homework(hw_no)
 	}
-) 
+)
 
 function load_homework(hw_no) {
 	url = "./hw-page/hw_" + hw_no + ".html"

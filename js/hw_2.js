@@ -1,18 +1,21 @@
-$(document).ready(
-	function() {
-		load_stu_score()
-		alert(1)
-	}
-) 
-
 function load_stu_score() {
 	url = "../data/students.json"//local
 	$.get(
 			url,
 			{},
 			function(o) {
-				// document.getElementById('student_json_loader').innerHTML = o
-				alert(o)
+				str = ""
+				tbody = document.getElementById('student_json_loader')
+				for (var i = 0; i<o.length; i++) {
+					tr = tbody.insertRow();
+					tr.insertCell().innerHTML = o[i].Name;
+					tr.insertCell().innerHTML = o[i].GPA;
+					tr.insertCell().innerHTML = o[i].GRE_V;
+					tr.insertCell().innerHTML = o[i].GRE_Q;
+					tr.insertCell().innerHTML = o[i].Essay;
+					tr.insertCell().innerHTML = o[i].Recom;
+				};
+
 			},
 			"json"
 		);
