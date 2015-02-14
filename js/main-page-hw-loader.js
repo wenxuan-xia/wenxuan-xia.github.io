@@ -3,7 +3,7 @@ $(document).ready(
 		url = window.location.href
 		var hw_no = url.search("[0-9]")
 		if (hw_no === -1) {
-			hw_no = 1
+			hw_no = 2
 		} else {
 			hw_no = url[hw_no]
 		}
