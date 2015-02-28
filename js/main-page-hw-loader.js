@@ -25,6 +25,9 @@ function load_homework(hw_no) {
 				if (hw_no==2) {
 					load_stu_score()
 				}
+				if (hw_no==3) {
+					hw_3()
+				}
 			},
 			"html"
 		);
