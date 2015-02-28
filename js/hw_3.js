@@ -22,6 +22,24 @@ function hw_3() {
 	
 	canvas.call(tip);
 
+	canvas.append("rect")
+		.attr("x", 22)
+	    .attr("y", 22)
+	    .attr("width", 150)
+	    .attr("height", 20)
+	    .style("fill", "#fafafa");
+	canvas.append("circle")
+		.style("fill", "orange")
+		.attr("cx", 42)
+		.attr("cy", 32)
+		.attr("r", 5)
+
+
+    canvas.append("text")
+		.attr("x", 60)
+	    .attr("y", 37)
+	    .text("country's data")
+
 d3.csv('../data/math.csv', function (data) {
 	var width_scale = d3.scale.linear()
 						.domain([0, 300])
@@ -85,5 +103,8 @@ d3.csv('../data/math.csv', function (data) {
 	      	.on('mouseover', tip.show)
       		.on('mouseout', tip.hide)
 	}
+
+	
+	  
 );
 }
