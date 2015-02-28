@@ -1,3 +1,3 @@
 # wenxuan-xia.github.io
 
-A personal introduction doc.
+Too lazy to update it. 
