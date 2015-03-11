@@ -1,8 +1,14 @@
 $(document).ready(
 	function() {
 		url = window.location.href
+		if (url[0] == "l") {
+			mylen = 21
+		} else {
+			mylen = 26
+		}
 		var hw_no = url.search("[0-9]")
-		if (hw_no == 21) {
+		alert(hw_no)
+		if (hw_no == 21) { // local	
 			if (hw_no === -1) {
 				hw_no = 3
 			} else {

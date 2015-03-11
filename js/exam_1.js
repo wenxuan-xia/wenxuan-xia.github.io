@@ -1,5 +1,9 @@
 function exam_1() {
-	var margin = {top: 40, right: 150, bottom: 50, left: 60},
+	graph_1()
+}
+
+function graph_1() {
+		var margin = {top: 40, right: 150, bottom: 50, left: 60},
     width = 800 - margin.left - margin.right,
     height = 480 - margin.top - margin.bottom;
 
@@ -116,7 +120,6 @@ function exam_1() {
 
 	}
 	)
-
 
 
 }
