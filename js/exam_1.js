@@ -41,7 +41,7 @@ function exam_1_graph_1() {
 	    .text("IE students in Univ.")
 
 
-	url = "http://hivelab.org/static/exam1.json"
+	url = "https://hivelab.org/static/exam1.json"
 	d3.json(url, function (data) {
 		var width_scale = d3.scale.ordinal()
 							.rangeRoundBands([0, width], .1)
