@@ -3,7 +3,7 @@ function exam_1_graph_2() {
 	    width = 800 - margin.left - margin.right,
 	    height = 480 - margin.top - margin.bottom
 
-
+	    my_max_height = 500
 	var tip_fre = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
@@ -115,7 +115,7 @@ function exam_1_graph_2() {
 
 
 		var height_scale = d3.scale.linear()
-							.domain([0, 500])
+							.domain([0, my_max_height])
 							.range([height, 0])
 
 		var x_axis = d3.svg.axis()
@@ -196,8 +196,8 @@ function exam_1_graph_2() {
 		      	.attr("class", "data-fre")
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.fre_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.fre_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.fre_num)})
 				.on('mouseover', tip_fre.show)
       			.on('mouseout', tip_fre.hide)
 
@@ -207,8 +207,8 @@ function exam_1_graph_2() {
 		      	.attr("class", "data-sop")
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.sop_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.fre_num - d.sop_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.sop_num)})
 				.on('mouseover', tip_sop.show)
       			.on('mouseout', tip_sop.hide)
 
@@ -218,8 +218,8 @@ function exam_1_graph_2() {
 		      	.attr("class", "data-jun")
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.jun_num - d.fre_num - d.sop_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.jun_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.jun_num - d.fre_num - d.sop_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.jun_num)})
 				.on('mouseover', tip_jun.show)
       			.on('mouseout', tip_jun.hide)
 
@@ -229,8 +229,8 @@ function exam_1_graph_2() {
 		      	.attr("class", "data-sen")
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.sen_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.sen_num)})
 				.on('mouseover', tip_sen.show)
       			.on('mouseout', tip_sen.hide)
 
@@ -247,7 +247,7 @@ function exam_1_graph_2() {
 			.enter().append("text")
 				.attr("class", "num_mark")
 		      	.attr("x", function(d) { return d.seq*(60+40) + 60 })
-		      	.attr("y", function(d) { return height - 5 -  height_scale(500 - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
+		      	.attr("y", function(d) { return height - 5 -  height_scale(my_max_height - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
 		      	.text(function(d) {return (d.fre_num + d.sop_num + d.jun_num + d.sen_num)})
 
 	}

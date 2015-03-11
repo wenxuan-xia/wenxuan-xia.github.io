@@ -3,7 +3,7 @@ function exam_1_graph_3() {
 	    width = 800 - margin.left - margin.right,
 	    height = 600 - margin.top - margin.bottom
 
-
+	    my_max_height = 500
 	var tip_fre = d3.tip()
 		.attr('class', 'd3-tip')
 		.offset([-10, 0])
@@ -116,7 +116,7 @@ url = "./data/exam1.json"
 
 
 		var height_scale = d3.scale.linear()
-							.domain([0, 500])
+							.domain([0, my_max_height])
 							.range([height, 0])
 
 		var x_axis = d3.svg.axis()
@@ -197,8 +197,8 @@ url = "./data/exam1.json"
 		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.fre_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.fre_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.fre_num)})
 				.on('mouseover', tip_fre.show)
       			.on('mouseout', tip_fre.hide)
       			.on('click', function() {change(0)} )
@@ -211,8 +211,8 @@ url = "./data/exam1.json"
 		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.sop_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.fre_num - d.sop_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.sop_num)})
 				.on('mouseover', tip_sop.show)
       			.on('mouseout', tip_sop.hide)
       			.on('click', function() {change(1)} )
@@ -224,8 +224,8 @@ url = "./data/exam1.json"
 		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.jun_num - d.fre_num - d.sop_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.jun_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.jun_num - d.fre_num - d.sop_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.jun_num)})
 				.on('mouseover', tip_jun.show)
       			.on('mouseout', tip_jun.hide)
       			.on('click', function() {change(2)} )
@@ -237,8 +237,8 @@ url = "./data/exam1.json"
 		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
-			    .attr("height", function(d) { return height_scale(500 - d.sen_num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.sen_num)})
 				.on('mouseover', tip_sen.show)
       			.on('mouseout', tip_sen.hide)
       			.on('click', function() {change(3)} )
@@ -257,7 +257,7 @@ url = "./data/exam1.json"
 				.attr("class", "num_mark")
 				.attr("seq", function(d) {return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 60 })
-		      	.attr("y", function(d) { return height - 5 -  height_scale(500 - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
+		      	.attr("y", function(d) { return height - 5 -  height_scale(my_max_height - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
 		      	.text(function(d) {return (d.fre_num + d.sop_num + d.jun_num + d.sen_num)})
 
 
@@ -290,7 +290,7 @@ url = "./data/exam1.json"
 		    		var seq = freman[i].getAttribute("seq")
 		    		// console.log(seq)
 		    		console.log(freman[i].getAttribute("y"))
-		    		freman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num))
+		    		freman[i].setAttribute("y", height - height_scale(my_max_height - fre * new_data[i].fre_num))
 		    	}
 		    }
 
@@ -300,7 +300,7 @@ url = "./data/exam1.json"
 		    		var seq = sopman[i].getAttribute("seq")
 		    		// console.log(seq)
 		    		console.log(sopman[i].getAttribute("y"))
-		    		sopman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num - sop * new_data[i].sop_num))
+		    		sopman[i].setAttribute("y", height - height_scale(my_max_height - fre * new_data[i].fre_num - sop * new_data[i].sop_num))
 		    	}
 		    }
 
@@ -310,7 +310,7 @@ url = "./data/exam1.json"
 		    		var seq = junman[i].getAttribute("seq")
 		    		// console.log(seq)
 		    		console.log(junman[i].getAttribute("y"))
-		    		junman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num - sop * new_data[i].sop_num - jun * new_data[i].jun_num))
+		    		junman[i].setAttribute("y", height - height_scale(my_max_height - fre * new_data[i].fre_num - sop * new_data[i].sop_num - jun * new_data[i].jun_num))
 		    	}
 		    }
 
@@ -320,14 +320,14 @@ url = "./data/exam1.json"
 		    		var seq = senman[i].getAttribute("seq")
 		    		// console.log(seq)
 		    		console.log(senman[i].getAttribute("y"))
-		    		senman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num - sop * new_data[i].sop_num - jun * new_data[i].jun_num - sen * new_data[i].sen_num))
+		    		senman[i].setAttribute("y", height - height_scale(my_max_height - fre * new_data[i].fre_num - sop * new_data[i].sop_num - jun * new_data[i].jun_num - sen * new_data[i].sen_num))
 		    	}
 		    }
 
 		    var text = canvas.selectAll(".num_mark")[0]
 		    for (var i=0; i<text.length; i++) {
 		    	var seq = text[i].getAttribute("seq")
-		    	text[i].setAttribute("y", height - 5 -  height_scale(500 - new_data[i].fre_num*fre - new_data[i].sop_num*sop - new_data[i].jun_num*jun - new_data[i].sen_num*sen))
+		    	text[i].setAttribute("y", height - 5 -  height_scale(my_max_height - new_data[i].fre_num*fre - new_data[i].sop_num*sop - new_data[i].jun_num*jun - new_data[i].sen_num*sen))
 		    }
 		 }
 	}

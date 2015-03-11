@@ -3,6 +3,8 @@ function exam_1_graph_1() {
 	    width = 800 - margin.left - margin.right,
 	    height = 480 - margin.top - margin.bottom
 
+	    my_max_height = 100
+	    
     var title = d3.select("#graph-1").append("h2")
     				.text("Number of Senior IE Students for Five Universities")
 
@@ -48,7 +50,7 @@ function exam_1_graph_1() {
 
 
 		var height_scale = d3.scale.linear()
-							.domain([0, 100])
+							.domain([0, my_max_height])
 							.range([height, 0])
 
 		var x_axis = d3.svg.axis()
@@ -98,8 +100,8 @@ function exam_1_graph_1() {
 		      	.attr("class", "data-point")
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
-			    .attr("y", function(d) { return height - height_scale(100 - d.num)})
-			    .attr("height", function(d) { return height_scale(100 - d.num)})
+			    .attr("y", function(d) { return height - height_scale(my_max_height - d.num)})
+			    .attr("height", function(d) { return height_scale(my_max_height - d.num)})
 	
 		canvas.selectAll(".text_mark")
 			.data(new_data)
@@ -114,7 +116,7 @@ function exam_1_graph_1() {
 			.enter().append("text")
 				.attr("class", "num_mark")
 		      	.attr("x", function(d) { return d.seq*(60+40) + 60 })
-		      	.attr("y", function(d) { return height - 5 -  height_scale(100 - d.num)})
+		      	.attr("y", function(d) { return height - 5 -  height_scale(my_max_height - d.num)})
 		      	.text(function(d) {return d.num})
 
 	}
