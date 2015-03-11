@@ -54,6 +54,8 @@ function load_exam(exam_no) {
 					exam_1_graph_1()
 				} else if (exam_no == 2) {
 					exam_1_graph_2()
+				} else if (exam_no == 3) {
+					exam_1_graph_3()
 				}
 			},
 			"html"

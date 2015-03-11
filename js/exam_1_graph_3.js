@@ -1,7 +1,7 @@
-function exam_1_graph_2() {
-	var margin = {top: 40, right: 150, bottom: 50, left: 60},
+function exam_1_graph_3() {
+	var margin = {top: 40, right: 150, bottom: 300, left: 60},
 	    width = 800 - margin.left - margin.right,
-	    height = 480 - margin.top - margin.bottom
+	    height = 600 - margin.top - margin.bottom
 
 
 	var tip_fre = d3.tip()
@@ -36,10 +36,10 @@ function exam_1_graph_2() {
 	    	+"<strong>Senior Number : </strong> <span style='color:red'>" + d.sen_num + "</span><br/>"
 	  	})
 	
-    var title = d3.select("#graph-2").append("h2")
+    var title = d3.select("#graph-3").append("h2")
     				.text("Total Numbers of IE Students in Five Universities")
 
-	var canvas = d3.select("#graph-2").append("svg")
+	var canvas = d3.select("#graph-3").append("svg")
 					.attr("width", width + margin.left + margin.right)
 					.attr("height", height + margin.top + margin.bottom)
 					.append("g")
@@ -94,7 +94,7 @@ function exam_1_graph_2() {
 	canvas.append("text")
 		.attr("x", width+30)
 	    .attr("y", 37 + bias + 40)
-	    .text("Sophomore")
+	    .text("Junior")
 
 	canvas.append("rect")
 		.style("fill", "#CC6699")
@@ -106,9 +106,10 @@ function exam_1_graph_2() {
 	canvas.append("text")
 		.attr("x", width+30)
 	    .attr("y", 37 + bias + 60)
-	    .text("Sophomore")
+	    .text("Senior")
 
-	url = "https://hivelab.org/static/exam1.json"
+// url = "https://hivelab.org/static/exam1.json"
+url = "./data/exam1.json"
 	d3.json(url, function (data) {
 		var width_scale = d3.scale.ordinal()
 							.rangeRoundBands([0, width], .1)
@@ -131,7 +132,7 @@ function exam_1_graph_2() {
 			.attr("transform", "translate(0, " + height+")")
 			.call(x_axis)
 			.append("text")
-				.attr("transform", "translate("+ (width/2 +20)+", 0)")
+				.attr("transform", "translate("+ (width +20)+", 0)")
 	      		.attr("y", 35)
 		      	.style("text-anchor", "end")
 		      	.text("Universitys")
@@ -140,7 +141,7 @@ function exam_1_graph_2() {
 			.attr("class", "y axis")
 			.call(y_axis)
 			.append("text")
-	    		.attr("transform", "translate(0, "+ (height/2 -60)+") rotate(-90)")
+	    		.attr("transform", "translate(0, "+ (0)+") rotate(-90)")
 	      		.attr("y", -45)
 		      	.style("text-anchor", "end")
 		      	.text("Student Number")
@@ -186,7 +187,6 @@ function exam_1_graph_2() {
 			new_data[4][obj] = data[item]["University E"]
 		}
 
-		console.log(new_data)
 
 
 
@@ -194,45 +194,54 @@ function exam_1_graph_2() {
 	    	.data(new_data)
 	    	.enter().append("rect")
 		      	.attr("class", "data-fre")
+		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.fre_num)})
 				.on('mouseover', tip_fre.show)
       			.on('mouseout', tip_fre.hide)
+      			.on('click', function() {change(0)} )
+
 
 		canvas.selectAll(".data-sop")
 	    	.data(new_data)
 	    	.enter().append("rect")
 		      	.attr("class", "data-sop")
+		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.sop_num)})
 				.on('mouseover', tip_sop.show)
       			.on('mouseout', tip_sop.hide)
+      			.on('click', function() {change(1)} )
 
 		canvas.selectAll(".data-jun")
 	    	.data(new_data)
 	    	.enter().append("rect")
 		      	.attr("class", "data-jun")
+		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.jun_num - d.fre_num - d.sop_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.jun_num)})
 				.on('mouseover', tip_jun.show)
       			.on('mouseout', tip_jun.hide)
+      			.on('click', function() {change(2)} )
 
 		canvas.selectAll(".data-sen")
 	    	.data(new_data)
 	    	.enter().append("rect")
 		      	.attr("class", "data-sen")
+		      	.attr("seq", function(d) { return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 40 })
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.sen_num)})
 				.on('mouseover', tip_sen.show)
       			.on('mouseout', tip_sen.hide)
+      			.on('click', function() {change(3)} )
 
 		canvas.selectAll(".text_mark")
 			.data(new_data)
@@ -246,10 +255,81 @@ function exam_1_graph_2() {
 			.data(new_data)
 			.enter().append("text")
 				.attr("class", "num_mark")
+				.attr("seq", function(d) {return d.seq})
 		      	.attr("x", function(d) { return d.seq*(60+40) + 60 })
 		      	.attr("y", function(d) { return height - 5 -  height_scale(500 - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
 		      	.text(function(d) {return (d.fre_num + d.sop_num + d.jun_num + d.sen_num)})
 
+
+		 function change(group) {
+		    var fre = 1, sop = 1, jun = 1, sen = 1
+		    if (group == 0) {
+		    	fre = 0
+		    	var freman = canvas.selectAll(".data-fre")
+		    				.attr("y", height)
+		    } 
+		    if (group == 1) {
+		    	sop = 0
+		    	var sopman = canvas.selectAll(".data-sop")
+		    				.attr("y", height)
+		    }
+		    if (group == 2) {
+		    	jun = 0
+		    	var junman = canvas.selectAll(".data-jun")
+		    				.attr("y", height)
+		    }
+		    if (group == 3) {
+		    	sen = 0
+		    	var senman = canvas.selectAll(".data-sen")
+		    				.attr("y", height)
+		    }
+
+		    if (fre) {
+		    	var freman = canvas.selectAll(".data-fre")[0]
+		    	for (var i=0; i<freman.length; i++) {
+		    		var seq = freman[i].getAttribute("seq")
+		    		// console.log(seq)
+		    		console.log(freman[i].getAttribute("y"))
+		    		freman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num))
+		    	}
+		    }
+
+		    if (sop) {
+		    	var sopman = canvas.selectAll(".data-sop")[0]
+		    	for (var i=0; i<sopman.length; i++) {
+		    		var seq = sopman[i].getAttribute("seq")
+		    		// console.log(seq)
+		    		console.log(sopman[i].getAttribute("y"))
+		    		sopman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num - sop * new_data[i].sop_num))
+		    	}
+		    }
+
+		    if (jun) {
+		    	var junman = canvas.selectAll(".data-jun")[0]
+		    	for (var i=0; i<junman.length; i++) {
+		    		var seq = junman[i].getAttribute("seq")
+		    		// console.log(seq)
+		    		console.log(junman[i].getAttribute("y"))
+		    		junman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num - sop * new_data[i].sop_num - jun * new_data[i].jun_num))
+		    	}
+		    }
+
+		    if (sen) {
+		    	var senman = canvas.selectAll(".data-sen")[0]
+		    	for (var i=0; i<senman.length; i++) {
+		    		var seq = senman[i].getAttribute("seq")
+		    		// console.log(seq)
+		    		console.log(senman[i].getAttribute("y"))
+		    		senman[i].setAttribute("y", height - height_scale(500 - fre * new_data[i].fre_num - sop * new_data[i].sop_num - jun * new_data[i].jun_num - sen * new_data[i].sen_num))
+		    	}
+		    }
+
+		    var text = canvas.selectAll(".num_mark")[0]
+		    for (var i=0; i<text.length; i++) {
+		    	var seq = text[i].getAttribute("seq")
+		    	text[i].setAttribute("y", height - 5 -  height_scale(500 - new_data[i].fre_num*fre - new_data[i].sop_num*sop - new_data[i].jun_num*jun - new_data[i].sen_num*sen))
+		    }
+		 }
 	}
 	)
 
