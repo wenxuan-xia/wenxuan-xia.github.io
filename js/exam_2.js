@@ -3,6 +3,39 @@ function exam_1_graph_2() {
 	    width = 800 - margin.left - margin.right,
 	    height = 480 - margin.top - margin.bottom
 
+
+	var tip_fre = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, 0])
+		.html(function(d) {
+	    	return "<strong>Univ:</strong> <span style='color:red'>" + d.univ + "</span><br/>"
+	    	+"<strong>Freshman Number : </strong> <span style='color:red'>" + d.fre_num + "</span><br/>"
+	  	})
+
+	var tip_sop = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, 0])
+		.html(function(d) {
+	    	return "<strong>Univ:</strong> <span style='color:red'>" + d.univ + "</span><br/>"
+	    	+"<strong>Sophomore Number : </strong> <span style='color:red'>" + d.sop_num + "</span><br/>"
+	  	})
+
+	var tip_jun = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, 0])
+		.html(function(d) {
+	    	return "<strong>Univ:</strong> <span style='color:red'>" + d.univ + "</span><br/>"
+	    	+"<strong>Junior Number : </strong> <span style='color:red'>" + d.jun_num + "</span><br/>"
+	  	})
+
+	var tip_sen = d3.tip()
+		.attr('class', 'd3-tip')
+		.offset([-10, 0])
+		.html(function(d) {
+	    	return "<strong>Univ:</strong> <span style='color:red'>" + d.univ + "</span><br/>"
+	    	+"<strong>Senior Number : </strong> <span style='color:red'>" + d.sen_num + "</span><br/>"
+	  	})
+	
     var title = d3.select("#graph-2").append("h2")
     				.text("Total Numbers of IE Students in Five Universities")
 
@@ -11,6 +44,11 @@ function exam_1_graph_2() {
 					.attr("height", height + margin.top + margin.bottom)
 					.append("g")
 					.attr("transform", "translate("+margin.left+", "+margin.top+")")
+
+	canvas.call(tip_fre);
+	canvas.call(tip_sop);
+	canvas.call(tip_jun);
+	canvas.call(tip_sen);
 
 	var bias = height / 2 - 60
 /*legen*/
@@ -70,8 +108,8 @@ function exam_1_graph_2() {
 	    .attr("y", 37 + bias + 60)
 	    .text("Sophomore")
 
-
-	d3.json('../data/exam1.json', function (data) {
+	url = "http://hivelab.org/static/exam1.json"
+	d3.json(url, function (data) {
 		var width_scale = d3.scale.ordinal()
 							.rangeRoundBands([0, width], .1)
 
@@ -160,7 +198,8 @@ function exam_1_graph_2() {
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.fre_num)})
-		
+				.on('mouseover', tip_fre.show)
+      			.on('mouseout', tip_fre.hide)
 
 		canvas.selectAll(".data-sop")
 	    	.data(new_data)
@@ -170,7 +209,9 @@ function exam_1_graph_2() {
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.sop_num)})
-		
+				.on('mouseover', tip_sop.show)
+      			.on('mouseout', tip_sop.hide)
+
 		canvas.selectAll(".data-jun")
 	    	.data(new_data)
 	    	.enter().append("rect")
@@ -179,7 +220,8 @@ function exam_1_graph_2() {
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.jun_num - d.fre_num - d.sop_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.jun_num)})
-		
+				.on('mouseover', tip_jun.show)
+      			.on('mouseout', tip_jun.hide)
 
 		canvas.selectAll(".data-sen")
 	    	.data(new_data)
@@ -189,7 +231,8 @@ function exam_1_graph_2() {
 		      	.attr("width", 60)
 			    .attr("y", function(d) { return height - height_scale(500 - d.fre_num - d.sop_num - d.jun_num - d.sen_num)})
 			    .attr("height", function(d) { return height_scale(500 - d.sen_num)})
-		
+				.on('mouseover', tip_sen.show)
+      			.on('mouseout', tip_sen.hide)
 
 		canvas.selectAll(".text_mark")
 			.data(new_data)
