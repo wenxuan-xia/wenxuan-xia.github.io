@@ -84,8 +84,21 @@ body {
   fill: orange;
 }
 
-.data-point:hover {
-  fill: orangered ;
+
+.data-fre {
+  fill: #6699CC;
+}
+
+.data-sop {
+  fill: #9966CC;
+}
+
+.data-jun {
+  fill: #FF6699;
+}
+
+.data-sen {
+  fill: #CC6699;
 }
 
 .d3-tip {

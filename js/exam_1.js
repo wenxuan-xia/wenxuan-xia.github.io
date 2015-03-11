@@ -1,14 +1,10 @@
-function exam_1() {
-	graph_1()
-}
-
-function graph_1() {
-		var margin = {top: 40, right: 150, bottom: 50, left: 60},
-    width = 800 - margin.left - margin.right,
-    height = 480 - margin.top - margin.bottom;
+function exam_1_graph_1() {
+	var margin = {top: 40, right: 150, bottom: 50, left: 60},
+	    width = 800 - margin.left - margin.right,
+	    height = 480 - margin.top - margin.bottom
 
     var title = d3.select("#graph-1").append("h2")
-    				.text("Number of IE Students in Different Years for Five Universities")
+    				.text("Number of Senior IE Students for Five Universities")
 
 	var canvas = d3.select("#graph-1").append("svg")
 					.attr("width", width + margin.left + margin.right)
@@ -17,35 +13,36 @@ function graph_1() {
 					.attr("transform", "translate("+margin.left+", "+margin.top+")")
 
 
+	var bias = height / 2 - 50
 	canvas.append("rect")
 		.attr("x", width)
-	    .attr("y", 22+130)
+	    .attr("y", 22+bias)
 	    .attr("width", 150)
 	    .attr("height", 50)
-	    .style("fill", "#aaaaaa");
+	    .style("fill", "#aaaaaa")
 
 	canvas.append("rect")
 		.style("fill", "orange")
 		.attr("x", width+10)
-		.attr("y", 32-5 + 130)
+		.attr("y", 32-5 + bias)
 		.attr("width", 10)
 		.attr("height" , 10)
 
 
     canvas.append("text")
 		.attr("x", width+30)
-	    .attr("y", 37 + 130)
+	    .attr("y", 37 + bias)
 	    .text("Number of senior")
 
 	
 	canvas.append("text")
 		.attr("x", width+30)
-	    .attr("y", 57 + 130)
+	    .attr("y", 57 + bias)
 	    .text("IE students in Univ.")
 
 	d3.json('../data/exam1.json', function (data) {
 		var width_scale = d3.scale.ordinal()
-							.rangeRoundBands([0, width], .1);
+							.rangeRoundBands([0, width], .1)
 
 
 		var height_scale = d3.scale.linear()
@@ -68,7 +65,7 @@ function graph_1() {
 				.attr("transform", "translate("+ (width/2 +20)+", 0)")
 	      		.attr("y", 35)
 		      	.style("text-anchor", "end")
-		      	.text("Universitys");
+		      	.text("Universitys")
 
 		canvas.append("g")
 			.attr("class", "y axis")
@@ -77,13 +74,13 @@ function graph_1() {
 	    		.attr("transform", "translate(0, "+ (height/2 -60)+") rotate(-90)")
 	      		.attr("y", -45)
 		      	.style("text-anchor", "end")
-		      	.text("Student Number");
+		      	.text("Student Number")
 
 		var new_data = []
 		var i = 0
 		for (item in data[3]) {
 			if (item != "Year") {
-				var q = {univ: "", num: "", seq: ""};
+				var q = {univ: "", num: "", seq: ""}
 				q.univ = item
 				q.num = data[3][item]
 				q.seq = i
@@ -91,7 +88,7 @@ function graph_1() {
 				i = i + 1
 			}
 		}
-		console.log(new_data)
+		// console.log(new_data)
 
 		canvas.selectAll(".data-point")
 	    	.data(new_data)
@@ -121,5 +118,6 @@ function graph_1() {
 	}
 	)
 
-
 }
+
+

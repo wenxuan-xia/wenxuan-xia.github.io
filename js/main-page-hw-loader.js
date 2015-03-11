@@ -1,14 +1,13 @@
 $(document).ready(
 	function() {
 		url = window.location.href
-		if (url[0] == "l") {
+		if (url[7] == "l") {
 			mylen = 21
 		} else {
-			mylen = 26
+			mylen = 33
 		}
 		var hw_no = url.search("[0-9]")
-		alert(hw_no)
-		if (hw_no == 21) { // local	
+		if (hw_no == mylen) { // local	
 			if (hw_no === -1) {
 				hw_no = 3
 			} else {
@@ -19,7 +18,7 @@ $(document).ready(
 			} else {
 				load_homework(hw_no)
 			}
-		} else if (hw_no == 23) {
+		} else if (hw_no == mylen+2) {
 			hw_no = url[hw_no]
 			load_exam(hw_no)
 		}
@@ -51,8 +50,10 @@ function load_exam(exam_no) {
 			{},
 			function(o) {
 				document.getElementById('homework-loader').innerHTML = o
-				if (exam_no==1) {
-					exam_1()
+				if (exam_no == 1) {
+					exam_1_graph_1()
+				} else if (exam_no == 2) {
+					exam_1_graph_2()
 				}
 			},
 			"html"
