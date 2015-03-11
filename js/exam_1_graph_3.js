@@ -1,7 +1,7 @@
 function exam_1_graph_3() {
-	var margin = {top: 40, right: 150, bottom: 300, left: 60},
+	var margin = {top: 40, right: 150, bottom: 180, left: 60},
 	    width = 800 - margin.left - margin.right,
-	    height = 600 - margin.top - margin.bottom
+	    height = 550 - margin.top - margin.bottom
 
 	    my_max_height = 500
 	var tip_fre = d3.tip()
