@@ -108,8 +108,8 @@ function exam_1_graph_3() {
 	    .attr("y", 37 + bias + 60)
 	    .text("Senior")
 
-// url = "https://hivelab.org/static/exam1.json"
-url = "./data/exam1.json"
+url = "https://hivelab.org/static/exam1.json"
+// url = "./data/exam1.json"
 	d3.json(url, function (data) {
 		var width_scale = d3.scale.ordinal()
 							.rangeRoundBands([0, width], .1)
