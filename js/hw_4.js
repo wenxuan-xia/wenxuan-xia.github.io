@@ -1,11 +1,53 @@
+function legend(color, flag) {
+	document.getElementById('legend-4').innerHTML = ""
+	if (flag == 0) return;
+	var margin = {top: 0, right: 0, bottom: 0, left: 0},
+    width = 640 - margin.left - margin.right,
+    height = 20;
+
+    var canvas = d3.select("#legend-4").append("svg")
+					.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+					.append("g")
+					.attr("transform", "translate("+margin.left+", "+margin.top+")")
+
+
+
+    canvas.append("rect")
+		.attr("x", 0)
+	    .attr("y", 0)
+	    .attr("width", width)
+	    .attr("height", 20)
+	    .style("fill", "#fafafa");
+
+	data = ["Central", "East", "West", "South"]
+
+	for (var i=0; i<data.length; i++) {
+		canvas.append("circle")
+			.style("fill", color(data[i]))
+			.attr("cx", 42+ i*160)
+			.attr("cy", 10)
+			.attr("r", 5)
+
+	    canvas.append("text")
+			.attr("x", 42+ i*160 + 10)
+		    .attr("y", 15)
+		    .text(data[i])
+	}
+	
+}
+
 function hw_4() {
+	var color = d3.scale.category20c()
+
+	legend(color, 0)
 
 	var margin = {top: 40, right: 20, bottom: 50, left: 60},
     width = 640 - margin.left - margin.right,
     height = 480 - margin.top - margin.bottom
 
     // color
-    var color = d3.scale.category20c()
+    
 
     // canvas, svg
 	var canvas = d3.select("#graph-4").append("svg")
@@ -15,8 +57,8 @@ function hw_4() {
 					.attr("transform", "translate("+margin.left+", "+margin.top+")")
 	
 
-// d3.csv('https://hivelab.org/static/coffee.csv', function (error, data) {
-d3.csv('../data/coffee.csv', function (error, data) {
+d3.csv('https://hivelab.org/static/coffee.csv', function (error, data) {
+// d3.csv('../data/coffee.csv', function (error, data) {
 	data = cut_data(data)
 	var nest=d3.nest()
         .key(function(d){return d.region})
@@ -68,9 +110,10 @@ d3.csv('../data/coffee.csv', function (error, data) {
 				     .text(function(d) {return d.children ? null : "S:"+d.sales})				     
 
 	d3.selectAll("#RS").on("change", function change() {
-	    var choice = this.value == "Region" ? 1 : 0
+	    var RS = this.value == "Region" ? 1 : 0
+	    legend(color, RS)
 	    rects.transition().duration(1500)
-	    	.attr("fill", function(d) {return d.children ? null : choice==1 ? color(d.region) : color(d.state)})
+	    	.attr("fill", function(d) {return d.children ? null : RS==1 ? color(d.region) : color(d.state)})
 	})
 
 	d3.selectAll("#SP").on("change", function change() {
