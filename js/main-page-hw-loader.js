@@ -38,6 +38,9 @@ function load_homework(hw_no) {
 				if (hw_no==3) {
 					hw_3()
 				}
+				if (hw_no==4) {
+					hw_4()
+				}
 			},
 			"html"
 		);
