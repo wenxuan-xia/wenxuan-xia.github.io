@@ -7,9 +7,9 @@ $(document).ready(
 			mylen = 33
 		}
 		var hw_no = url.search("[0-9]")
-		if (hw_no == mylen) { // local	
+		if (hw_no == mylen || hw_no == -1) { // local	
 			if (hw_no === -1) {
-				hw_no = 3
+				hw_no = 4
 			} else {
 				hw_no = url[hw_no]
 			}
