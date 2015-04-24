@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<style>
+	body{
+  		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  	}
+
+  	table {
+  		border-collapse:collapse;
+  	}
+
+	td, th {
+	  width: 60px;
+	  text-align: right;
+	}
+
+	th {
+		background-color: #AAAAAA;
+	}
+
+	td {
+		color : #a0a0a0;
+	}
+
+
+</style>
+
+
+<head>
+	<title>exam 2 ---- figure 1</title>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/d3.min.js"></script>
+</head>
+
+
+<body>
+	<h3 align="center">Exam-2 D3js_problem 1</h3>
+	<div id="vis_1" align="center">
+		<script>
+			url = "https://hivelab.org/static/exam2.json"
+			var table = d3.select("#vis_1").append("table")
+							.attr("id", "table_1")
+
+
+			d3.json(url, function(o) {
+				table_head = table.append("tr")
+								  
+
+				for (name in o[0]) {
+					table_head.append("th")
+							  .text(name)
+				}
+				var rows = table.selectAll(".row_dat")
+							   .data(o)
+							   .enter().append("tr")
+							   		   .attr("id", function(d) {return d.ItemNo})
+							   		   .attr("class", "data_point")
+							   		   .on("mouseover", function(d) { set_hover_color(d.ItemNo)})
+							   		   .on("click", function(d) { set_click_color(d.ItemNo)})
+				// rows.append("td")
+				var counter = 0
+				for (name in o[0]) {
+					rows.append("td")
+					    .attr("class", name)
+					    .text(function(d) {return d[name]})
+				}
+			})
+
+		</script>
+	</div>
+	author: Wenxuan Xia<br/>
+	Data Source: https://hivelab.org/static/exam2.json
+	<br/><br/><br/>
+	<hr/>
+	<div>
+		Click-Recorder: <input id="hid"></input>
+		<p>If using CSS to realize the hovor-action, it will lose efficacy after clicking, Because of the LoVe-HAte principle. So I use origin-JS + HTML to avoid this problem.</p>
+		<p>In order to show my method more clearly, I didn't make this text-input invisible.</p><br/>
+	</div>
+</body>
+</html>
