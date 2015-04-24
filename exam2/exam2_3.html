@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+
+<style>
+	body{
+  		font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+  	}
+
+  	table {
+  		border-collapse:collapse;
+  	}
+
+	td, th {
+	  width: 60px;
+	  text-align: right;
+	}
+
+	th {
+		background-color: #AAAAAA;
+	}
+
+	td {
+		color : #a0a0a0;
+	}
+
+
+</style>
+
+
+<head>
+	<title>exam 2 ---- figure 1</title>
+	<script src="../js/jquery-1.8.3.min.js"></script>
+	<script src="../js/d3.min.js"></script>
+</head>
+
+
+<body>
+	<h3 align="center">Exam-2 d3js_problem 2</h3>
+	<div id="vis_1" align="center">
+		<script>
+			var namelist = ["ItemNo", "A", "B", "C", "D", "E", "F", "G"]
+			url = "https://hivelab.org/static/exam2.json"
+			var table = d3.select("#vis_1").append("table")
+							.attr("id", "table_1")
+
+
+			d3.json(url, function(o) {
+				rst = data_process(o)
+
+				
+				table_head = table.append("tr")
+								  
+				for (name in o[0]) {
+					table_head.append("th")
+							  .text(name)
+				}
+				var rows = table.selectAll(".row_dat")
+							   .data(rst)
+							   .enter().append("tr")
+							   		   .attr("row", function(d) {return d[0].ItemNo})
+							   		   .attr("class", "data_point")
+
+				var counter = 0
+				for (var v=0; v<namelist.length; v++) {
+					rows.append("td")
+					    .attr("class", function(d) {return d[v][1]})
+					    .text(function(d) {return d[v][0]})
+					    .on("mouseover", function() {
+					    	hover_action($(this))
+					    })
+					    .on("click", function() {
+					    	click_action($(this))
+					    })
+				}
+			})
+
+			function hover_action(mlink) {
+				var click = document.getElementById('hid').value
+				for(var i=0; i<15; i++) {
+					if (click != ("Item"+i)) {
+						d3.selectAll(".Item"+i).style("background-color", "white")
+					}
+				}
+				hover_class = mlink.attr("class")
+				console.log(click)
+				console.log(hover_class)
+				if (click != hover_class) {
+					d3.selectAll("."+hover_class).style("background-color", "yellow")
+				}
+			}
+
+			function click_action(mlink) {
+				document.getElementById('hid').value = mlink.attr("class")
+				for(var i=0; i<15; i++) {
+					d3.selectAll(".Item"+i).style("background-color", "white")
+				}
+				hover_class = mlink.attr("class")
+				d3.selectAll("."+hover_class).style("background-color", "#33FF66")
+			}
+
+
+			function data_process(o) {
+				var idx = new Array()
+				var namelist = ["ItemNo", "A", "B", "C", "D", "E", "F", "G"]
+				for (var i=0; i<o.length; i++) {
+					var items = new Array()
+					for (var j=0; j<8; j++) {
+						items[j] = "Item"+i
+					}
+					idx[i] = items
+				}
+				for (var v=0; v<namelist.length; v++) {
+					for (var i=0; i<o.length; i++) {
+						for (var j=i+1; j<o.length; j++) {
+							if (o[i][namelist[v]] < o[j][namelist[v]]) {
+								t=o[i][namelist[v]];  o[i][namelist[v]]=o[j][namelist[v]];  o[j][namelist[v]]=t;
+								t=idx[i][v]; idx[i][v]=idx[j][v]; idx[j][v]=t;
+							}
+						}
+					}
+				}
+				var rst = new Array()
+				for (var i=0; i<o.length; i++) {
+					var qo = new Array()
+					for (var j=0; j<namelist.length; j++) {
+						var qi = new Array()
+						qi[0] = o[i][namelist[j]]
+						qi[1] = idx[i][j]
+						qo[j] = qi
+					}
+					rst[i] = qo 
+				}
+				return rst
+			}
+
+		</script>
+	</div>
+	author: Wenxuan Xia<br/>
+	Data Source: https://hivelab.org/static/exam2.json
+	<br/><br/><br/>
+	<hr/>
+	<div>
+		<h3>Additional Statement</h3>
+		Click-Recorder: <input id="hid"></input>
+		<p>OK, I used jQuery+d3js to solve this.</p>
+	</div>
+</body>
+</html>

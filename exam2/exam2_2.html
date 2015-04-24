@@ -32,6 +32,7 @@
 	<title>exam 2 ---- figure 2</title>
 	<script src="../js/jquery-1.8.3.min.js"></script>
 	<script src="../js/d3.min.js"></script>
+	<script></script>
 </head>
 
 
@@ -39,20 +40,69 @@
 	<h3 align="center">Exam-2 d3js_problem 2</h3>
 	<div id="vis_1" align="center">
 		<script>
+			function change_tbody(col) {
+				d3.selectAll(".sort")
+						.style("background-color", "#AAAAAA")
+
+				d3.select("#sort"+col)
+						.style("background-color", "#FFFF99")
+				var table_tbody = d3.select("#tb")
+					tb.innerHTML = ""
+
+				url = "https://hivelab.org/static/exam2.json"	
+				d3.json(url, function(o) {
+					o = data_process(o, col)
+					/*tbody*/
+					
+					var rows = table_tbody.selectAll(".row_dat")
+								   .data(o)
+								   .enter().append("tr")
+								   		   .attr("id", function(d) {return d.ItemNo})
+								   		   .attr("class", "data_point")
+								   		   .on("mouseover", function(d) { set_hover_color(d.ItemNo)})
+								   		   .on("click", function(d) { set_click_color(d.ItemNo)})
+
+					var counter = 0
+					for (name in o[0]) {
+						rows.append("td")
+						    .attr("class", name)
+						    .text(function(d) {return d[name]})
+					}
+				})		
+			}
+
+
+
 			url = "https://hivelab.org/static/exam2.json"
 			var table = d3.select("#vis_1").append("table")
 							.attr("id", "table_1")
 
-
+			table.innerHTML = ""
 			d3.json(url, function(o) {
+				name_list = ["ItenNo", "A", "B", "C", "D", "E", "F", "G"]
+				/*thead*/
 				table_head = table.append("tr")
-								  
+				table_head.append("th").text("ItemNo").attr("class", "sort").attr(
+					"id", "sortItemNo").on("click", function() { change_tbody("ItemNo")})
+				table_head.append("th").text("A").attr("class", "sort").attr(
+					"id", "sortA").on("click", function() { change_tbody("A")})
+				table_head.append("th").text("B").attr("class", "sort").attr(
+					"id", "sortB").on("click", function() { change_tbody("B")})
+				table_head.append("th").text("C").attr("class", "sort").attr(
+					"id", "sortC").on("click", function() { change_tbody("C")})
+				table_head.append("th").text("D").attr("class", "sort").attr(
+					"id", "sortD").on("click", function() { change_tbody("D")})
+				table_head.append("th").text("E").attr("class", "sort").attr(
+					"id", "sortE").on("click", function() { change_tbody("E")})
+				table_head.append("th").text("F").attr("class", "sort").attr(
+					"id", "sortF").on("click", function() { change_tbody("F")})
+				table_head.append("th").text("G").attr("class", "sort").attr(
+					"id", "sortG").on("click", function() { change_tbody("G")})
 
-				for (name in o[0]) {
-					table_head.append("th")
-							  .text(name)
-				}
-				var rows = table.selectAll(".row_dat")
+				/*tbody*/
+				var table_tbody = table.append("tbody")
+										.attr("id", "tb")
+				var rows = table_tbody.selectAll(".row_dat")
 							   .data(o)
 							   .enter().append("tr")
 							   		   .attr("id", function(d) {return d.ItemNo})
@@ -66,7 +116,25 @@
 					    .attr("class", name)
 					    .text(function(d) {return d[name]})
 				}
-			})
+			})			
+
+			function data_process(o, col) {
+				console.log(col)
+				if (col === "") return o;
+				len = o.length
+				for (var i=0; i<len; i++) {
+					for (var j=i+1; j<len; j++) {
+						if (o[i][col] < o[j][col]) {
+							t = o[i]
+							o[i] = o[j]
+							o[j] = t
+						}
+					}
+				}
+				data = o
+				console.log(data)
+				return data
+			}
 
 			function set_hover_color(hover_id) {
 				var clicked = document.getElementById('hid').value
@@ -81,6 +149,7 @@
 				d3.select("#"+hover_id)
 				  .style("background-color", "yellow")
 			}
+		
 
 			function set_click_color(click_id) {
 				d3.selectAll(".data_point")
@@ -91,6 +160,8 @@
 
 				document.getElementById('hid').value = click_id
 			}
+
+
 		</script>
 	</div>
 	author: Wenxuan Xia<br/>
