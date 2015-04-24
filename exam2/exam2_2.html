@@ -29,14 +29,14 @@
 
 
 <head>
-	<title>exam 2 ---- figure 1</title>
+	<title>exam 2 ---- figure 2</title>
 	<script src="../js/jquery-1.8.3.min.js"></script>
 	<script src="../js/d3.min.js"></script>
 </head>
 
 
 <body>
-	<h3 align="center">Exam-2 D3js_problem 1</h3>
+	<h3 align="center">Exam-2 d3js_problem 2</h3>
 	<div id="vis_1" align="center">
 		<script>
 			url = "https://hivelab.org/static/exam2.json"
@@ -59,7 +59,7 @@
 							   		   .attr("class", "data_point")
 							   		   .on("mouseover", function(d) { set_hover_color(d.ItemNo)})
 							   		   .on("click", function(d) { set_click_color(d.ItemNo)})
-				// rows.append("td")
+
 				var counter = 0
 				for (name in o[0]) {
 					rows.append("td")
@@ -68,6 +68,29 @@
 				}
 			})
 
+			function set_hover_color(hover_id) {
+				var clicked = document.getElementById('hid').value
+				d3.selectAll(".data_point")
+				  .style("background-color", "white")
+
+				if (clicked != "") {
+					d3.select("#"+clicked)
+					  .style("background-color", "#33FF66")  
+				}
+
+				d3.select("#"+hover_id)
+				  .style("background-color", "yellow")
+			}
+
+			function set_click_color(click_id) {
+				d3.selectAll(".data_point")
+				  .style("background-color", "white")
+
+				d3.select("#"+click_id)
+				  .style("background-color", "#33FF66")  
+
+				document.getElementById('hid').value = click_id
+			}
 		</script>
 	</div>
 	author: Wenxuan Xia<br/>
@@ -75,8 +98,9 @@
 	<br/><br/><br/>
 	<hr/>
 	<div>
+		<h3>Additional Statement</h3>
 		Click-Recorder: <input id="hid"></input>
-		<p>If using CSS to realize the hovor-action, it will lose efficacy after clicking, Because of the LoVe-HAte principle. So I use origin-JS + HTML to avoid this problem.</p>
+		<p>If using CSS to realize the hovor-action, the yellow-hovering will lose efficacy after clicking any others, Because of the <strong>LoVe-HAte</strong> principle. So I use origin-JS + HTML to avoid this problem.</p>
 		<p>In order to show my method more clearly, I didn't make this text-input invisible.</p><br/>
 	</div>
 </body>
